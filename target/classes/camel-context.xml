@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xmlns:foo="http://example.com/person"
+    xmlns:prop="http://camel.apache.org/schema/placeholder"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans                                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd                                          http://camel.apache.org/schema/spring                                           http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <camelContext id="camel-context" xmlns="http://camel.apache.org/schema/spring">
+        <route id="_route1">
+            <from id="_from1" uri="direct:items"/>
+            <filter id="_filter1">
+                <language language="groovy">request.headers.get('lineItems').any{i -&gt; i.value &gt; 100}</language>
+                <to id="_to1" uri="direct:mock1"/>
+            </filter>
+            <to id="_to2" uri="direct:mock2"/>
+        </route>
+        <route id="_route2">
+            <from id="_from2" uri="direct:mock1"/>
+            <log id="_log1" message="from direct:mock1 ----------> ${body}"/>
+        </route>
+        <route id="_route3">
+            <from id="_from3" uri="direct:mock2"/>
+            <log id="_log2" message="from direct:mock2 ----------> ${body}"/>
+        </route>
+    </camelContext>
+</beans>
