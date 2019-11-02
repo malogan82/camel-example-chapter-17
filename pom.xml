@@ -6,7 +6,7 @@
   <name>camel-example-chapter-17</name>
   <description>Camel Example Chapter 17</description>
   <properties>
-  	<camel.version>2.21.0.fuse-730078-redhat-00001</camel.version>
+  	<camel.version>2.24.2</camel.version>
   </properties>
   <dependencies>
   	<dependency>
